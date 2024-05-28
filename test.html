@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vulnerable Input to Uppercase</title>
+</head>
+<body>
+    <h1>Vulnerable Input to Uppercase</h1>
+    <form id="inputForm">
+        <label for="userInput">Enter text:</label>
+        <input type="text" id="userInput" name="userInput" required>
+        <button type="submit">Submit</button>
+    </form>
+    <p id="output"></p>
+
+<script>
+document.getElementById('inputForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form submission
+    var inputText = document.getElementById('userInput').value;
+    var upperCaseText = inputText.toUpperCase();
+    
+    // Vulnerable to XSS: Using innerHTML without sanitizing input
+    document.getElementById('output').innerHTML = upperCaseText;
+});
+
+</script>
+</body>
+</html>
